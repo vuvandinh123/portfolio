@@ -1,34 +1,36 @@
-name: CI/CD Pipeline
+name: Deploy to VPS
 
 on:
   push:
     branches:
-      - main  # hoặc branch mà bạn muốn sử dụng để triển khai
+      - main  # Thay đổi nếu bạn triển khai từ branch khác
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'  # hoặc phiên bản Node.js mà bạn đang sử dụng
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # Thay đổi nếu bạn dùng phiên bản khác
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Build
-        run: npm run build
+    - name: Build project
+      run: npm run build
 
-      - name: Deploy
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          HOST: ${{ secrets.VPS_HOST }}
-          USER: ${{ secrets.VPS_USER }}
-        run: |
-          scp -r ./out $USER@$HOST:/path/to/your/app
-          ssh $USER@$HOST 'cd /path/to/your/app && npm install --production && pm2 restart app'
+    - name: Deploy to VPS
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        VPS_HOST: ${{ secrets.VPS_HOST }}
+        VPS_USER: ${{ secrets.VPS_USER }}
+      run: |
+        echo "$SSH_PRIVATE_KEY" > private_key
+        chmod 600 private_key
+        rsync -avz --delete -e "ssh -i private_key -o StrictHostKeyChecking=no" ./ VPS_USER@VPS_HOST:/var/www/vuvandinh.id.vn/html/
+        ssh -i private_key -o StrictHostKeyChecking=no VPS_USER@VPS_HOST "cd /var/www/vuvandinh.id.vn/html/ && npm install --production && pm2 restart all"
