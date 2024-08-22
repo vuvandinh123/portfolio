@@ -1,26 +1,48 @@
-import { HackathonCard } from "@/components/hackathon-card";
+"use client";
+import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
+import Particles from "@/components/magicui/particles";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { AnimatedShinyTextCV } from "@/components/ui/shiny";
 import { DATA } from "@/data/resume";
-import Link from "next/link";
+import { ArrowRightIcon } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
+  const { theme } = useTheme();
+  const [color, setColor] = useState("#ffffff");
+  useEffect(() => {
+    setColor(theme === "dark" ? "#ffffff" : "#000000");
+  }, [theme]);
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10">
+    <main className="flex flex-col  min-h-[100dvh] space-y-10">
+      <div className="w-full overflow-hidden h-screen fixed left-0 right-0">
+        <Particles
+          className="absolute inset-0"
+          quantity={100}
+          ease={80}
+          color={color}
+          refresh
+        />
+      </div>
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
+          <BlurFade delay={BLUR_FADE_DELAY}>
+            <AnimatedShinyTextCV text="Xem thêm về tôi với CV"></AnimatedShinyTextCV>
+          </BlurFade>
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
-                className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
+                className="text-5xl font-bold tracking-tighter sm:text-5xl xl:text-5xl/none"
                 yOffset={8}
                 text={`Xin chào, Tôi là ${DATA.name.split(" ")[0]} 👋`}
               />
