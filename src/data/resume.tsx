@@ -8,7 +8,7 @@ export const DATA = {
   location: "HO CHI MINH CITY, VIETNAM",
   locationLink: "https://www.google.com/maps/place/sanfrancisco",
   description:
-    "Với vai trò là một kỹ sư phần mềm, tôi luôn đam mê học hỏi các công nghệ mới và tận dụng chúng để xây dựng những website thân thiện với người dùng, mang lại trải nghiệm tối ưu và hiệu quả.",
+    "Là một kỹ sư phần mềm, tôi luôn đam mê học hỏi các công nghệ mới và tận dụng chúng để xây dựng những website thân thiện với người dùng, mang lại trải nghiệm tối ưu và hiệu quả.",
   summary: `Tôi là Vũ Văn Định, một lập trình viên Fullstack với 1 năm kinh nghiệm chuyên sâu trong phát triển phần mềm. Hiện tại, tôi đang làm việc tại Thành phố Hồ Chí Minh và luôn nuôi dưỡng niềm đam mê mãnh liệt với lập trình. Tôi yêu thích việc học hỏi và áp dụng các công nghệ mới để xây dựng các ứng dụng web hiệu quả và thân thiện với người dùng.
 
 Tôi có kinh nghiệm vững vàng trong việc phát triển các dự án từ giai đoạn thiết kế giao diện người dùng cho đến quản lý cơ sở dữ liệu và xử lý logic phía máy chủ. Kỹ năng của tôi bao gồm HTML, CSS, JavaScript, React.js cho Frontend và Node.js, Express.js, MySQL cho Backend. Tôi luôn nỗ lực không ngừng để cập nhật kiến thức mới, cải tiến kỹ năng và đóng góp vào sự thành công của các dự án mà tôi tham gia.
@@ -27,10 +27,11 @@ Với mục tiêu liên tục phát triển và đạt được những thành t
     "Git",
     "Linux",
     "CI/CD",
+    "Deployment",
   ],
   navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "/", icon: HomeIcon, label: "Trang chủ" },
+    { href: "/blog", icon: NotebookIcon, label: "Bài viết" },
   ],
   contact: {
     email: "vuvandinh203@gmail.com",
@@ -116,11 +117,37 @@ Tôi rất mong được nghe phản hồi từ bạn và sẵn sàng trao đổ
   ],
   projects: [
     {
-      title: "Thương mại điện tử BT2",
-      href: "https://chatcollect.com",
+      title: "Website CMS giới thiệu công ty",
+      href: "https://aviatek.com.vn",
+      dates: "Tháng 6 2024 - Tháng 8 2024",
+      active: true,
+      description: `Xây dựng một hệ thống quản lý nội dung (CMS) để giới thiệu công ty và hỗ trợ quá trình tuyển dụng. Website cung cấp các thông tin về công ty, văn hóa doanh nghiệp, và các cơ hội việc làm. Ngoài ra, quản trị viên có thể dễ dàng cập nhật thông tin và quản lý các bài đăng tuyển dụng.`,
+      technologies: [
+        "React.js",
+        "Redux",
+        "TailwindCSS",
+        "Node.js",
+        "MySQL",
+        "JWT",
+        "Express",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://aviatek.com.vn",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "",
+      video:
+        "https://res.cloudinary.com/dwvttgtcw/video/upload/v1724353560/Screencast_from_23-08-2024_02_03_02_kywgch.webm",
+    },
+    {
+      title: "Website thương mại điện tử B2C",
+      href: "https://github.com/vuvandinh123",
       dates: "Tháng 12 2023 - Tháng 7 2024",
       active: true,
-      description: `Dự Án Thương Mại Điện Tử BT2 là một nền tảng bán hàng trực tuyến toàn diện, cho phép chủ cửa hàng quản lý sản phẩm và đơn hàng, người mua hàng thực hiện giao dịch, và quản trị viên điều hành hệ thống. Được phát triển bằng Node.js, React.js, và MySQL, dự án nhằm tối ưu hóa quy trình kinh doanh và nâng cao trải nghiệm người dùng.`,
+      description: `Dự Án Thương Mại Điện Tử BTC là một nền tảng bán hàng trực tuyến toàn diện, cho phép chủ cửa hàng quản lý sản phẩm và đơn hàng, người mua hàng thực hiện giao dịch, và quản trị viên điều hành hệ thống. Được phát triển bằng Node.js, React.js, và MySQL, dự án nhằm tối ưu hóa quy trình kinh doanh và nâng cao trải nghiệm người dùng.`,
       technologies: [
         "React.js",
         "Redux",
@@ -134,107 +161,65 @@ Tôi rất mong được nghe phản hồi từ bạn và sẵn sàng trao đổ
       links: [
         {
           type: "Website",
-          href: "https://chatcollect.com",
+          href: "https://github.com/vuvandinh123",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image:
+        "https://res.cloudinary.com/dwvttgtcw/image/upload/v1724349344/zwq6l9zvb83bqiabpsdi.gif",
+      video: "",
+    },
+    {
+      title: "Website kiểm tra trắc nghiệm",
+      href: "https://github.com/vuvandinh123",
+      dates: "Tháng 1 2024 - Tháng 5 2024",
+      active: true,
+      description: `Xây dựng một hệ thống website toàn diện để quản lý và tổ chức các kỳ thi trắc nghiệm cho công đoàn trường học. Hệ thống cho phép quản trị viên tạo và quản lý các bài thi trắc nghiệm, theo dõi kết quả và thống kê điểm số. Người dùng có thể đăng nhập, làm bài thi trực tuyến, và xem kết quả thi của mình.`,
+      technologies: [
+        "React.js",
+        "Redux",
+        "TailwindCSS",
+        "Node.js",
+        "MySQL",
+        "JWT",
+        "Firebase",
+        "Express",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://vuvandinh.com",
           icon: <Icons.globe className="size-3" />,
         },
       ],
       image: "",
       video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/chat-collect.mp4",
+        "https://res.cloudinary.com/dwvttgtcw/video/upload/v1724351852/vet5gk8oxfj8yeioqxe3.webm",
     },
     {
-      title: "Magic UI",
-      href: "https://magicui.design",
-      dates: "June 2023 - Present",
+      title: "Website hiển thị và đặt lịch dán decals",
+      href: "https://dinhdev.click",
+      dates: "Tháng 7 2024 - Hiện tại",
       active: true,
-      description:
-        "Designed, developed and sold animated UI components for developers.",
+      description: `Phát triển một nền tảng web để hiển thị và đặt lịch dịch vụ dán decals cho khách hàng. Website cung cấp giao diện dễ sử dụng cho việc xem các mẫu decals, chọn dịch vụ phù hợp, và đặt lịch hẹn để dán decals.`,
       technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
+        "React.js",
+        "Redux",
         "TailwindCSS",
-        "Stripe",
-        "Shadcn UI",
-        "Magic UI",
+        "PHP",
+        "Laravel",
+        "JWT",
       ],
       links: [
         {
           type: "Website",
-          href: "https://magicui.design",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/magicuidesign/magicui",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "https://cdn.magicui.design/bento-grid.mp4",
-    },
-    {
-      title: "llm.report",
-      href: "https://llm.report",
-      dates: "April 2023 - September 2023",
-      active: true,
-      description:
-        "Developed an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-        "Stripe",
-        "Cloudflare Workers",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://llm.report",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/dillionverma/llm.report",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "https://cdn.llm.report/openai-demo.mp4",
-    },
-    {
-      title: "Automatic Chat",
-      href: "https://automatic.chat",
-      dates: "April 2023 - March 2024",
-      active: true,
-      description:
-        "Developed an AI Customer Support Chatbot which automatically responds to customer support tickets using the latest GPT models.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-        "Stripe",
-        "Cloudflare Workers",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://automatic.chat",
+          href: "https://dinhdev.click",
           icon: <Icons.globe className="size-3" />,
         },
       ],
       image: "",
       video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/automatic-chat.mp4",
+        "https://res.cloudinary.com/dwvttgtcw/video/upload/v1724352504/xpqwg3rokja5nd7gislq.webm",
     },
   ],
   hackathons: [

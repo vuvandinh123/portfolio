@@ -7,6 +7,7 @@ import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { MarqueeGithub } from "@/components/ui/marquee";
 import { AnimatedShinyTextCV } from "@/components/ui/shiny";
 import { DATA } from "@/data/resume";
 import { ArrowRightIcon } from "lucide-react";
@@ -149,7 +150,7 @@ export default function Page() {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
                   Xem các dự án mới nhất của tôi
                 </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-md/relaxed">
                   Tôi đã làm việc trên nhiều dự án khác nhau, từ các trang web
                   đơn giản đến các ứng dụng web phức tạp. Dưới đây là một vài
                   trong số yêu thích của tôi.
@@ -222,6 +223,28 @@ export default function Page() {
           </BlurFade>
         </div>
       </section> */}
+      <section id="projects">
+        <div className="space-y-12 w-full py-12">
+          <BlurFade delay={BLUR_FADE_DELAY * 11}>
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
+                  Github Projects
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+                  Các dự án mã nguồn mở của tôi
+                </h2>
+                <p className="text-muted-foreground md:text-md/relaxed lg:text-base/relaxed xl:text-md/relaxed">
+                  Tôi đã xây dựng hơn 30 repository public trên github 
+                </p>
+              </div>
+            </div>
+          </BlurFade>
+          <div className=" max-w-[800px] mx-auto">
+            <MarqueeGithub></MarqueeGithub>
+          </div>
+        </div>
+      </section>
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
