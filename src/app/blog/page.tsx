@@ -33,10 +33,11 @@ export default async function BlogPage() {
               href={`/blog/${post.slug}`}
             >
               <div className="w-full flex flex-col">
-                <p className="tracking-tight">{post.metadata.title}</p>
+                <h2 className="tracking-tight hover:underline text-md">{post.metadata.title}</h2>
                 <p className="h-6 text-xs text-muted-foreground">
                   {post.metadata.publishedAt}
                 </p>
+                <p className="text-xs text-gray-400">{post.metadata.summary}</p>
               </div>
             </Link>
           </BlurFade>

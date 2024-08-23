@@ -1,0 +1,267 @@
+---
+title: "Các Hook Phổ Biến Trong React"
+publishedAt: "2024-08-23"
+summary: "Giới thiệu về các React Hook phổ biến và cách sử dụng chúng"
+---
+
+React Hooks là một tính năng quan trọng được giới thiệu từ phiên bản 16.8, cho phép bạn sử dụng state và các tính năng khác của React mà không cần viết class. Trong bài viết này, chúng ta sẽ khám phá một số hook phổ biến nhất và cách sử dụng chúng.
+
+## 1. useState
+
+`useState` cho phép bạn thêm trạng thái vào một thành phần chức năng. Hàm này trả về một mảng gồm hai phần tử: giá trị hiện tại của trạng thái và một hàm để cập nhật giá trị đó.
+
+Ví dụ:
+
+```jsx
+import React, { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Bạn đã click {count} lần</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+## 2. useEffect
+
+`useEffect` cho phép bạn thực hiện các hiệu ứng phụ trong các thành phần chức năng, chẳng hạn như fetch dữ liệu hoặc thay đổi DOM. Bạn có thể chỉ định một hàm callback và một mảng phụ thuộc.
+
+Ví dụ:
+
+```jsx
+import React, { useEffect, useState } from "react";
+
+function DataFetcher() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch("https://api.example.com/data")
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  }, []); // Mảng phụ thuộc rỗng, chỉ chạy lần đầu
+
+  return (
+    <div>{data ? <p>Data: {JSON.stringify(data)}</p> : <p>Loading...</p>}</div>
+  );
+}
+```
+
+## 3. useContext
+
+`useContext` cho phép bạn sử dụng ngữ cảnh (context) trong các thành phần chức năng mà không cần phải sử dụng Context.Consumer.
+
+Ví dụ:
+
+```jsx
+import React, { createContext, useContext } from "react";
+
+const ThemeContext = createContext("light");
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
+
+  return (
+    <button style={{ background: theme === "dark" ? "#333" : "#fff" }}>
+      Button
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <ThemedButton />
+    </ThemeContext.Provider>
+  );
+}
+```
+
+## 2. useReducer
+
+`useReducer`  thường được sử dụng khi bạn có trạng thái phức tạp hoặc nhiều hành động để xử lý. Nó tương tự như useState, nhưng mạnh mẽ hơn với cách tiếp cận giống như Redux.
+
+Ví dụ:
+
+```jsx
+import React, { useReducer } from 'react';
+
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <div>
+      <p>Count: {state.count}</p>
+      <button onClick={() => dispatch({ type: 'increment' })}>Increase</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>Decrease</button>
+    </div>
+  );
+}
+
+
+```
+
+
+## 2. useRef
+
+`useRef` cho phép bạn tạo một tham chiếu (reference) đến một phần tử DOM hoặc một giá trị nào đó mà không gây ra việc render lại thành phần.
+
+Ví dụ:
+
+```jsx
+import React, { useRef } from 'react';
+
+function FocusInput() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+
+
+```
+
+## 6. `useMemo`
+
+`useMemo` giúp bạn tối ưu hóa hiệu suất bằng cách chỉ tính toán lại giá trị khi các phụ thuộc thay đổi. Điều này có thể giúp giảm thiểu việc tính toán lại không cần thiết trong các thành phần.
+
+```jsx
+import React, { useMemo, useState } from 'react';
+
+function ExpensiveComponent({ number }) {
+  const computedValue = useMemo(() => {
+    // Giả sử đây là một phép tính tốn kém
+    return number * 2;
+  }, [number]);
+
+  return <div>Computed Value: {computedValue}</div>;
+}
+```
+
+## 6. `useCallback`
+
+`useCallback`  giúp bạn ghi nhớ các hàm (callbacks) để không bị tạo ra mới trong mỗi lần render, điều này hữu ích khi bạn truyền các hàm xuống cho các thành phần con để tránh render lại không cần thiết.
+
+```jsx
+import React, { useCallback, useState } from 'react';
+
+function Button({ onClick }) {
+  console.log('Button rendered');
+  return <button onClick={onClick}>Click me</button>;
+}
+
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
+  return (
+    <div>
+      <Button onClick={handleClick} />
+      <p>Count: {count}</p>
+    </div>
+  );
+}
+```
+
+## 6. `useLayoutEffect`
+
+`useLayoutEffect` tương tự như useEffect, nhưng nó được thực thi ngay sau khi các thay đổi DOM được thực hiện, nhưng trước khi trình duyệt vẽ lại màn hình. Điều này hữu ích khi bạn cần thực hiện các phép tính DOM có thể ảnh hưởng đến việc render.
+
+```jsx
+import React, { useLayoutEffect, useRef } from 'react';
+
+function LayoutEffectExample() {
+  const divRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const { offsetWidth } = divRef.current;
+    console.log('Width:', offsetWidth);
+  }, []);
+
+  return <div ref={divRef}>Hello, World!</div>;
+}
+```
+## 6. `useImperativeHandle`
+
+`useImperativeHandle` cho phép bạn tùy chỉnh giá trị mà ref trả về khi nó được sử dụng với forwardRef. Điều này giúp bạn kiểm soát cách các thành phần con tương tác với các ref từ cha.
+
+```jsx
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+
+const FancyInput = forwardRef((props, ref) => {
+  const inputRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    }
+  }));
+
+  return <input ref={inputRef} {...props} />;
+});
+
+function Parent() {
+  const fancyInputRef = useRef(null);
+
+  return (
+    <div>
+      <FancyInput ref={fancyInputRef} />
+      <button onClick={() => fancyInputRef.current.focus()}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+## Tổng Kết
+
+Trong React, các hook cung cấp một cách tiếp cận mạnh mẽ và linh hoạt để quản lý trạng thái, hiệu ứng phụ và các vấn đề khác trong các thành phần chức năng. Dưới đây là một số điểm quan trọng từ bài viết này:
+
+1. **`useState`**: Cho phép bạn thêm trạng thái vào các thành phần chức năng. Đây là hook cơ bản và thường được sử dụng để quản lý các giá trị động trong thành phần.
+
+2. **`useEffect`**: Giúp bạn thực hiện các hiệu ứng phụ như gọi API, thay đổi DOM, hoặc thiết lập và dọn dẹp các sự kiện. Nó chạy sau khi thành phần render và có thể được cấu hình với mảng phụ thuộc.
+
+3. **`useContext`**: Cung cấp một cách đơn giản để truy cập ngữ cảnh (context) mà không cần `Context.Consumer`. Điều này giúp truyền dữ liệu xuống các thành phần mà không cần phải qua nhiều lớp.
+
+4. **`useReducer`**: Là một lựa chọn mạnh mẽ hơn cho việc quản lý trạng thái khi có nhiều hành động hoặc trạng thái phức tạp. Hook này làm việc giống như một mini-Redux bên trong thành phần.
+
+5. **`useRef`**: Cho phép bạn giữ tham chiếu đến các phần tử DOM hoặc giá trị mà không gây ra render lại thành phần, hữu ích cho việc truy cập trực tiếp đến DOM hoặc lưu trữ giá trị không gây ra render.
+
+6. **`useMemo`** và **`useCallback`**: Giúp tối ưu hóa hiệu suất bằng cách ghi nhớ các giá trị tính toán hoặc hàm callback để tránh việc tính toán lại hoặc tạo lại không cần thiết.
+
+7. **`useLayoutEffect`**: Thực hiện các hiệu ứng phụ ngay sau khi DOM được cập nhật nhưng trước khi trình duyệt vẽ lại, hữu ích cho các phép tính DOM ảnh hưởng đến render.
+
+8. **`useImperativeHandle`**: Tùy chỉnh cách mà ref từ `forwardRef` tương tác với thành phần, giúp bạn kiểm soát các phương thức mà ref có thể truy cập.
+
+9. **`useTransition`**: Cung cấp cách để quản lý các cập nhật không khẩn cấp, cải thiện trải nghiệm người dùng bằng cách đánh dấu các cập nhật không quan trọng hơn.
+
+Những hook này không chỉ giúp bạn viết mã dễ dàng hơn mà còn giúp tối ưu hóa hiệu suất và tổ chức mã tốt hơn. Việc hiểu và sử dụng đúng các hook này có thể giúp bạn xây dựng các ứng dụng React mạnh mẽ và hiệu quả hơn.
+
+

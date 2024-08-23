@@ -3,6 +3,7 @@ import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import Particles from "@/components/magicui/particles";
+import SparklesText from "@/components/magicui/sparkles-text";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -41,19 +42,16 @@ export default function Page() {
           </BlurFade>
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
+              <BlurFade delay={BLUR_FADE_DELAY}>
+                <SparklesText className="text-[35px] sm:text-[40px]" text="Xin chào, Tôi là Định 👋" />
+              </BlurFade>
               <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className="text-5xl font-bold tracking-tighter sm:text-5xl xl:text-5xl/none"
-                yOffset={8}
-                text={`Xin chào, Tôi là ${DATA.name.split(" ")[0]} 👋`}
-              />
-              <BlurFadeText
-                className="max-w-[600px] md:text-md"
+                className="max-w-[600px] text-justify sm:text-start mt-2 md:text-md"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
             </div>
-            <BlurFade delay={BLUR_FADE_DELAY}>
+            <BlurFade className="after:bg-gray-300 after:sm:hidden after:block after:absolute after:left-1/2 after:-translate-x-1/2 after:top-[50%] after:z-[-1] z-10 after:w-[2px] after:h-1/2 relative after:rounded-full" delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
@@ -69,7 +67,7 @@ export default function Page() {
           </h2>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
+          <Markdown className="prose max-w-full text-justify text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
             {DATA.summary}
           </Markdown>
         </BlurFade>
@@ -132,6 +130,7 @@ export default function Page() {
                 altText={education.school}
                 title={education.school}
                 subtitle={education.degree}
+                description={education.description}
                 period={`${education.start} - ${education.end}`}
               />
             </BlurFade>
@@ -235,7 +234,7 @@ export default function Page() {
                   Các dự án mã nguồn mở của tôi
                 </h2>
                 <p className="text-muted-foreground md:text-md/relaxed lg:text-base/relaxed xl:text-md/relaxed">
-                  Tôi đã xây dựng hơn 30 repository public trên github 
+                  Tôi đã xây dựng hơn 30 repository public trên github
                 </p>
               </div>
             </div>

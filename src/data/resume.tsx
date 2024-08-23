@@ -2,11 +2,12 @@ import { Icons } from "@/components/icons";
 import { HomeIcon, NotebookIcon } from "lucide-react";
 
 export const DATA = {
-  name: "Định",
+  name: "Vũ Văn Định",
   initials: "DV",
-  url: "https://dillion.io",
+  url: "https://vuvandinh.id.vn",
   location: "HO CHI MINH CITY, VIETNAM",
-  locationLink: "https://www.google.com/maps/place/sanfrancisco",
+  locationLink:
+    "https://www.google.com/maps/place/Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh,+H%E1%BB%93+Ch%C3%AD+Minh,+Vi%E1%BB%87t+Nam/@10.7546181,106.3655586,10z/data=!3m1!4b1!4m6!3m5!1s0x317529292e8d3dd1:0xf15f5aad773c112b!8m2!3d10.8230989!4d106.6296638!16zL20vMGhuNGg?entry=ttu&g_ep=EgoyMDI0MDgyMC4xIKXMDSoASAFQAw%3D%3D",
   description:
     "Là một kỹ sư phần mềm, tôi luôn đam mê học hỏi các công nghệ mới và tận dụng chúng để xây dựng những website thân thiện với người dùng, mang lại trải nghiệm tối ưu và hiệu quả.",
   summary: `Tôi là Vũ Văn Định, một lập trình viên Fullstack với 1 năm kinh nghiệm chuyên sâu trong phát triển phần mềm. Hiện tại, tôi đang làm việc tại Thành phố Hồ Chí Minh và luôn nuôi dưỡng niềm đam mê mãnh liệt với lập trình. Tôi yêu thích việc học hỏi và áp dụng các công nghệ mới để xây dựng các ứng dụng web hiệu quả và thân thiện với người dùng.
@@ -113,6 +114,9 @@ Tôi rất mong được nghe phản hồi từ bạn và sẵn sàng trao đổ
       logoUrl: "https://hitu.edu.vn/wp-content/uploads/2021/12/favicon.ico",
       start: "2021",
       end: "2024",
+      description: `
+      Trong quá trình học tham gia xây dựng các trang web cho trường với mục đích tạo điều kiện thuận lợi cho nhiều hoạt động khác nhau như các cuộc thi của công đoàn trường hoặc trang web xác minh việc đi học bằng cách tìm kiếm vị trí và chụp ảnh chân dung trong khuôn viên trường. Và được tham gia các cuộc thi sinh viên giỏi nghề "Thiết kế website" do đoàn Thanh Niên Hồ Chí Minh tổ chức.
+      `,
     },
   ],
   projects: [
