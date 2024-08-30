@@ -1,5 +1,4 @@
 "use client";
-import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import Particles from "@/components/magicui/particles";
@@ -53,7 +52,7 @@ export default function Page() {
             </div>
             <BlurFade className="after:bg-gray-300 after:sm:hidden after:block after:absolute after:left-1/2 after:-translate-x-1/2 after:top-[50%] after:z-[-1] z-10 after:w-[2px] after:h-1/2 relative after:rounded-full" delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
+                <AvatarImage alt={DATA.name}   src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
