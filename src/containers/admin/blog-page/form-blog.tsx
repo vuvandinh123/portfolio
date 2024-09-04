@@ -2,15 +2,12 @@
 
 import { ForwardRefEditor } from "@/components/ForwardRefEditor";
 import React from "react";
-import { MDXEditorMethods } from "@mdxeditor/editor";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import http from "@/lib/http";
 import { useForm } from "react-hook-form";
-import z from "zod";
 import { CreateBlogBodyType, CreateBlogBodySchema } from "@/types/blog";
 import {
   Form,
@@ -36,12 +33,12 @@ export default function FormBlog({ blog }: { blog?: CreateBlogBodyType }) {
   const fnCreateBlog = async (values: CreateBlogBodyType) => {
     setLoading(true);
     try {
-      const response = await http.post("blogs", values);
-      if (response.status === 201) {
+      const { payload }: any = await http.post("blogs", values);
+      if (payload.status === 201) {
         form.reset();
         toast({
           title: "Thành công",
-          description: response.message || "Tạo bài viết thành công",
+          description: payload?.message || "Tạo bài viết thành công",
         });
       }
     } catch (error) {

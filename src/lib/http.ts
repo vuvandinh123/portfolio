@@ -10,9 +10,6 @@ const request = async <Response>(
     url: string,
     options?: CustomOptions | undefined
 ) => {
-    
-    console.log(BASE_URL);
-
     let body: FormData | string | undefined = undefined
     if (options?.body instanceof FormData) {
         body = options.body
@@ -27,7 +24,10 @@ const request = async <Response>(
                 'Content-Type': 'application/json',
             }
 
-    let fullUrl = options?.baseUrl?.startsWith("/") ? `${BASE_URL}${url}` : `${BASE_URL}/${url}`
+    let fullUrl = url.startsWith("https") 
+    ? url : url.startsWith("/") 
+    ? `${BASE_URL}${url}` : `${BASE_URL}/${url}`
+
     if (options?.queryParams) {
         const searchParams = new URLSearchParams(options.queryParams)
         fullUrl += `?${searchParams.toString()}`
@@ -44,7 +44,12 @@ const request = async <Response>(
     if (!response.ok) {
         throw new Error(response.statusText);
     }
-    return response.json();
+    const payload: Response = await response.json();
+    const data = {
+        status: response.status,
+        payload
+    }
+    return data;
 }
 const http = {
     get<Response>(

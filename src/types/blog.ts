@@ -11,3 +11,11 @@ export const CreateBlogBodySchema = z.object({
   content: z.string().min(5, "Nội dung ít nhất 5 ký tự"),
 })
 export type CreateBlogBodyType = z.TypeOf<typeof CreateBlogBodySchema>
+
+export type ListBlogType = {
+  _id: number;
+  title: string;
+  description: string;
+  content: string;
+  date: string;
+}

@@ -12,7 +12,7 @@ export default function Sidebar() {
         </Button>
       </div>
       <nav className="grid gap-1 p-2">
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger  asChild>
             <Button
               variant="ghost"
@@ -86,9 +86,9 @@ export default function Sidebar() {
           <TooltipContent side="right" sideOffset={5}>
             Settings
           </TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
       </nav>
-      <nav className="mt-auto grid gap-1 p-2">
+      {/* <nav className="mt-auto grid gap-1 p-2">
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -119,7 +119,7 @@ export default function Sidebar() {
             Account
           </TooltipContent>
         </Tooltip>
-      </nav>
+      </nav> */}
     </aside>
   );
 }

@@ -6,17 +6,20 @@ import { NextResponse } from "next/server";
 export interface ApiResponse<T> {
   status?: number;
   data: T;
+  options?: any;
   message?: string; // Default message is "Thành công"
 }
 
 export function ResponseSuccess<T>({
   data,
   message = "Thành công",
+  options,
   status = SUCCESS
 }: ApiResponse<T>) {
   return NextResponse.json({
     status: status,
     data,
+    options,
     message,
   });
 }
