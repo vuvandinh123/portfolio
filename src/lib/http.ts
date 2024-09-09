@@ -24,9 +24,9 @@ const request = async <Response>(
                 'Content-Type': 'application/json',
             }
 
-    let fullUrl = url.startsWith("https") 
-    ? url : url.startsWith("/") 
-    ? `${BASE_URL}${url}` : `${BASE_URL}/${url}`
+    let fullUrl = url.startsWith("https")
+        ? url : url.startsWith("/")
+            ? `${BASE_URL}${url}` : `${BASE_URL}/${url}`
 
     if (options?.queryParams) {
         const searchParams = new URLSearchParams(options.queryParams)
@@ -39,11 +39,12 @@ const request = async <Response>(
             ...options?.headers,
         } as any,
         body,
+        cache: 'no-cache',
     };
     const response = await fetch(fullUrl, config);
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
+    // if (!response.ok) {
+    //     throw new Error(response.statusText);
+    // }
     const payload: Response = await response.json();
     const data = {
         status: response.status,

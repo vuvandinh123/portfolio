@@ -29,6 +29,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ListBlogType } from "@/types/blog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function DataTable({
   data,
@@ -82,19 +91,22 @@ export function DataTable({
           }
           className="max-w-sm"
         />
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Fruits</SelectLabel>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+              <SelectItem value="blueberry">Blueberry</SelectItem>
+              <SelectItem value="grapes">Grapes</SelectItem>
+              <SelectItem value="pineapple">Pineapple</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
         <DropdownMenu>
-          <select
-            onChange={(e) => {
-              console.log(e.target.value);
-              table.setPageSize(Number(e.target.value));
-            }}
-            name=""
-            id=""
-          >
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-          </select>
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()

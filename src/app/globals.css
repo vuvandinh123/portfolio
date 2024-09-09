@@ -172,3 +172,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   @apply list-decimal;
   @apply !pl-6;
 }
+
+.flex-center {
+  @apply flex items-center justify-center;
+}

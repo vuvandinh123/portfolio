@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+import React from "react";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
-
   return (
     <Button
       variant="ghost"

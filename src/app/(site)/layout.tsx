@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar";
 import { cn } from "@/lib/utils";
 
-export default function RootLayout({
+export default function SiteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

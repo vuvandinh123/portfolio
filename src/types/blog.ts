@@ -12,7 +12,16 @@ export const CreateBlogBodySchema = z.object({
 })
 export type CreateBlogBodyType = z.TypeOf<typeof CreateBlogBodySchema>
 
+
+
 export type ListBlogType = {
+  _id: number;
+  title: string;
+  description: string;
+  content: string;
+  date: string;
+}
+export type BlogType = {
   _id: number;
   title: string;
   description: string;

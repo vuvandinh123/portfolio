@@ -9,7 +9,6 @@ import { Toaster } from "@/components/ui/toaster";
 import NextTopLoader from "nextjs-toploader";
 const fontSans = FontSans({
   subsets: ['latin'],
-  weight: ['400', '700'],
 });
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
@@ -54,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("font-sans", fontSans.className)}>
+      <body className={cn("", fontSans.className)}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
             <NextTopLoader

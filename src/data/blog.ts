@@ -47,7 +47,10 @@ export async function getPost(slug: string) {
     slug,
   };
 }
-
+export async function convertMdxToHtml(content: string) {
+  const data = await markdownToHTML(content);
+  return data
+}
 async function getAllPosts(dir: string) {
   let mdxFiles = getMDXFiles(dir);
   return Promise.all(

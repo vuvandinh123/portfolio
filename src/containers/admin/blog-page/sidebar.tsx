@@ -1,6 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
-import { Book, Bot, Code2, LifeBuoy, Settings2, SquareTerminal, SquareUser, Triangle } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@radix-ui/react-tooltip";
+import {
+  Book,
+  Bot,
+  Code2,
+  LifeBuoy,
+  Settings2,
+  SquareTerminal,
+  SquareUser,
+  Triangle,
+} from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 export default function Sidebar() {
@@ -12,51 +26,17 @@ export default function Sidebar() {
         </Button>
       </div>
       <nav className="grid gap-1 p-2">
-        {/* <Tooltip>
-          <TooltipTrigger  asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-lg bg-muted"
-              aria-label="Playground"
-            >
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href="/admin/blog" className="rounded-lg p-2 bg-muted block">
               <SquareTerminal className="size-5" />
-            </Button>
+            </Link>
           </TooltipTrigger>
           <TooltipContent side="right" sideOffset={5}>
-            Playground
+            Bài viết
           </TooltipContent>
         </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-lg"
-              aria-label="Models"
-            >
-              <Bot className="size-5" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right" sideOffset={5}>
-            Models
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-lg"
-              aria-label="API"
-            >
-              <Code2 className="size-5" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right" sideOffset={5}>
-            API
-          </TooltipContent>
-        </Tooltip>
+     
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -86,7 +66,7 @@ export default function Sidebar() {
           <TooltipContent side="right" sideOffset={5}>
             Settings
           </TooltipContent>
-        </Tooltip> */}
+        </Tooltip>
       </nav>
       {/* <nav className="mt-auto grid gap-1 p-2">
         <Tooltip>
