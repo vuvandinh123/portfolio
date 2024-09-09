@@ -42,9 +42,9 @@ const request = async <Response>(
         cache: 'no-cache',
     };
     const response = await fetch(fullUrl, config);
-    // if (!response.ok) {
-    //     throw new Error(response.statusText);
-    // }
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
     const payload: Response = await response.json();
     const data = {
         status: response.status,

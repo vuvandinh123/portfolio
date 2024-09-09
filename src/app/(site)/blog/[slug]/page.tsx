@@ -51,49 +51,54 @@ export default async function Blog({
     slug: string;
   };
 }) {
-  let { payload }: { payload: any } = await blogApiRequest.getOne(params.slug);
-  const post = payload.data as BlogType;
-  if (!post) {
+  try {
+    let { payload }: { payload: any } = await blogApiRequest.getOne(
+      params.slug
+    );
+    const post = payload.data as BlogType;
+    if (!post) {
+      return <NotFound />;
+    }
+    const content = await convertMdxToHtml(post.content);
+    return (
+      <section id="blog">
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: post.title,
+              datePublished: post.date,
+              dateModified: post.date,
+              description: post.description,
+              image: `${DATA.url}/og?title=${post.title}`,
+              url: `${DATA.url}/blog/${post._id}`,
+              author: {
+                "@type": "Person",
+                name: DATA.name,
+              },
+            }),
+          }}
+        />
+        <h1 className=" font-bold text-4xl  tracking-tighter max-w-[650px]">
+          {post.title}
+        </h1>
+        <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+          <Suspense fallback={<p className="h-5" />}>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              {formatDate(post.date)}
+            </p>
+          </Suspense>
+        </div>
+        <article
+          className="prose dark:prose-invert"
+          dangerouslySetInnerHTML={{ __html: content }}
+        ></article>
+      </section>
+    );
+  } catch (error) {
     return <NotFound />;
   }
-  const content = await convertMdxToHtml(post.content);
-
-  return (
-    <section id="blog">
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.title,
-            datePublished: post.date,
-            dateModified: post.date,
-            description: post.description,
-            image: `${DATA.url}/og?title=${post.title}`,
-            url: `${DATA.url}/blog/${post._id}`,
-            author: {
-              "@type": "Person",
-              name: DATA.name,
-            },
-          }),
-        }}
-      />
-      <h1 className=" font-bold text-4xl  tracking-tighter max-w-[650px]">
-        {post.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        <Suspense fallback={<p className="h-5" />}>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            {formatDate(post.date)}
-          </p>
-        </Suspense>
-      </div>
-      <article
-        className="prose dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: content }}
-      ></article>
-    </section>
-  );
 }

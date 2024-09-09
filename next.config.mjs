@@ -7,5 +7,6 @@ const nextConfig = {
   },
 };
 export default MillionLint.next({
-  rsc: true
+  rsc: true,
+  missingSuspenseWithCSRBailout: false,
 })(nextConfig);
