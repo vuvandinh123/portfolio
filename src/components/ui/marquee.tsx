@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Link as NextLink } from "lucide-react";
 import Link from "next/link";
+import http from "@/lib/http";
 // import Link from "next/link";
 // import Link from ""
 const reviews = [
@@ -88,7 +89,11 @@ const ReviewCard = ({
         />
         <div className="flex flex-col">
           <figcaption className="text-sm font-medium dark:text-white">
-            <Link href={url} className="hover:underline flex gap-2 items-center" target="_blank">
+            <Link
+              href={url}
+              className="hover:underline flex gap-2 items-center"
+              target="_blank"
+            >
               <NextLink size={10}></NextLink> {name}
             </Link>
           </figcaption>
@@ -99,33 +104,43 @@ const ReviewCard = ({
     </figure>
   );
 };
-
+interface RepoType {
+  id: number;
+  name: string;
+  description: string;
+  url: string;
+  created_at: string;
+  language: string;
+  avatar: string;
+  username: string;
+}
 export function MarqueeGithub() {
   const [repos, setRepos] = useState([] as Array<any>);
   useEffect(() => {
-    const fetchRepos = async () => {
-      const res = await fetch(
-        "https://api.github.com/users/vuvandinh123/repos"
-      );
-      const data = await res.json();
-      const newData = data.map((repo: any) => ({
-        name: repo.name,
-        id: repo.id,
-        description: repo.description,
-        url: repo.html_url,
-        created_at: repo.created_at,
-        language: repo.language,
-        avatar: repo.owner.avatar_url,
-        username: repo.owner.login,
-      }));
-      setRepos(newData);
-    };
-    fetchRepos();
+    (async () => {
+      try {
+        const { payload }: any = await http.get(
+          "https://api.github.com/users/vuvandinh123/repos"
+        );
+        const newData = payload.map((repo: any) => ({
+          name: repo.name,
+          id: repo.id,
+          description: repo.description,
+          url: repo.html_url,
+          created_at: repo.created_at,
+          language: repo.language,
+          avatar: repo.owner.avatar_url,
+          username: repo.owner.login,
+        }));
+        setRepos(newData);
+      } catch (error) {}
+    })();
   }, []);
+
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg">
       <Marquee pauseOnHover className="[--duration:100s]">
-        {repos?.map((repo) => (
+        {repos?.map((repo: any) => (
           <ReviewCard key={repo.id} {...repo} />
         ))}
       </Marquee>
