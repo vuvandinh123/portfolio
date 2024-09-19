@@ -2,6 +2,7 @@
 import z from "zod";
 
 export const CreateBlogBodySchema = z.object({
+  _id: z.string().optional(),
   title: z.string().min(5, {
     message: 'Tiêu đề phải có ít nhất 5 ký tự'
   }).max(255, {

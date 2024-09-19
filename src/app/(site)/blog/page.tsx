@@ -1,6 +1,5 @@
 import blogApiRequest from "@/apiRequest/blog";
 import BlurFade from "@/components/magicui/blur-fade";
-import http from "@/lib/http";
 import { formatDate } from "@/lib/utils";
 import { ListBlogType } from "@/types/blog";
 import Link from "next/link";
@@ -37,7 +36,7 @@ export default async function BlogPage() {
                 <p className="h-6 text-xs text-muted-foreground">
                   {formatDate(post.date)}
                 </p>
-                <p className="text-xs text-gray-400 text_ecl-2">
+                <p className="text-xs text_ecl-2 text-gray-400 text_ecl-2">
                   {post.description}
                 </p>
               </div>

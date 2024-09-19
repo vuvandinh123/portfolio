@@ -1,5 +1,6 @@
 "use client";
 import authApiRequest from "@/apiRequest/auth";
+import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -30,7 +31,8 @@ export default function LoginForm() {
   const fnLoginSubmit = async (values: LoginBodyType) => {
     setLoading(true);
     const { payload }: any = await authApiRequest.login(values);
-    if (payload.status === 201) {
+
+    if (payload?.status === 201) {
       toast({
         title: "Thành công",
         description: payload?.message || "Đăng nhập thành công",
@@ -38,8 +40,8 @@ export default function LoginForm() {
       router.push("/admin");
     } else {
       toast({
-        title: "Thất bại",
-        description: payload?.message,
+        title: "Thất bại",
+        description: "Tài khoản hoặc mật khẩu không chính xác",
       });
     }
     setLoading(false);
@@ -50,6 +52,7 @@ export default function LoginForm() {
   };
   return (
     <div className="flex-center h-screen">
+      {loading && <Loading />}
       <Form {...form}>
         <form
           className="lg:w-[500px] w-full p-3 shadow-lg rounded-lg border py-5"

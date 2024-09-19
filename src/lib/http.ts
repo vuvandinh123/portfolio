@@ -43,7 +43,14 @@ const request = async <Response>(
     };
     const response = await fetch(fullUrl, config);
     if (!response.ok) {
-        throw new Error(response.statusText);
+        return {
+            status: response.status,
+            payload: {
+                status: response.status,
+                message: response.statusText
+            }
+        }
+        // throw new Error(response.statusText);
     }
     const payload: Response = await response.json();
     const data = {

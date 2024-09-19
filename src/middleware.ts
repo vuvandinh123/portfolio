@@ -10,7 +10,8 @@ const authPaths = ["/login"]
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const token = request.cookies.get('token')?.value || '';
-
+    const response = NextResponse.next() as NextResponse<unknown> & { user: JwtPayload };
+    // Thiết lập CORS headers
     if (privateApi.some(api => pathname.includes(api))) {
         if (!token) {
             return NextResponse.json({ message: "Không có quyền truy cập" }, { status: 401 });
@@ -18,9 +19,8 @@ export async function middleware(request: NextRequest) {
         try {
             const secret = new TextEncoder().encode(process.env.JWT_SECRET);
             const { payload } = await jwtVerify(token, secret);
-            const respose = NextResponse.next() as NextResponse<unknown> & { user: JwtPayload };
-            respose.user = payload as JwtPayload;
-            return respose;
+            response.user = payload as JwtPayload;
+            return response;
         } catch (error) {
             console.error('Token verification error:', error);
             return NextResponse.json({ message: "Không có quyền truy cập" }, { status: 401 });

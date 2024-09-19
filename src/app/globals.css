@@ -176,3 +176,11 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 .flex-center {
   @apply flex items-center justify-center;
 }
+
+.text_ecl-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Số dòng hiển thị */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

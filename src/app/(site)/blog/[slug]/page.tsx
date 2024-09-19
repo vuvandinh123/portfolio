@@ -16,7 +16,7 @@ export async function generateMetadata({
   };
 }): Promise<Metadata | undefined> {
   let { payload }: { payload: any } = await blogApiRequest.getOne(params.slug);
-  const post = payload.data as BlogType;
+  const post = payload?.data as BlogType;
   if (!post) return;
   let { title, description, date: publishedTime } = post;
   return {
@@ -43,7 +43,14 @@ export async function generateMetadata({
     },
   };
 }
+async function getData({ id }: { id: string }) {
+  let { payload }: { payload: any } = await blogApiRequest.getOne(id);
+  const post = payload?.data as BlogType;
+  console.log(post);
 
+  if (!post) return notFound();
+  return post;
+}
 export default async function Blog({
   params,
 }: {
@@ -52,13 +59,7 @@ export default async function Blog({
   };
 }) {
   try {
-    let { payload }: { payload: any } = await blogApiRequest.getOne(
-      params.slug
-    );
-    const post = payload.data as BlogType;
-    if (!post) {
-      return <NotFound />;
-    }
+    const post = await getData({ id: params.slug });
     const content = await convertMdxToHtml(post.content);
     return (
       <section id="blog">

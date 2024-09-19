@@ -17,10 +17,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import blogApiRequest from "@/apiRequest/blog";
 
 export default function FormBlog({ blog }: { blog?: CreateBlogBodyType }) {
   const { toast } = useToast();
   const [loading, setLoading] = React.useState<boolean>(false);
+  const router = useRouter();
   const form = useForm<CreateBlogBodyType>({
     resolver: zodResolver(CreateBlogBodySchema),
     defaultValues: {
@@ -32,13 +35,15 @@ export default function FormBlog({ blog }: { blog?: CreateBlogBodyType }) {
   const fnCreateBlog = async (values: CreateBlogBodyType) => {
     setLoading(true);
     try {
-      const { payload }: any = await http.post("blogs", values);
+      const { payload }: any = await http.post("/admin/blogs", values);
       if (payload.status === 201) {
         form.reset();
+        form.setValue("content", "");
         toast({
           title: "Thành công",
           description: payload?.message || "Tạo bài viết thành công",
         });
+        router.push("/admin/blog");
       }
     } catch (error) {
     } finally {
@@ -46,13 +51,32 @@ export default function FormBlog({ blog }: { blog?: CreateBlogBodyType }) {
     }
   };
   const fnEditBlog = async (values: CreateBlogBodyType) => {
-    // const response = await http.put(`blogs/${blog?.id}`, values);
+    try {
+      const { payload }: any = await blogApiRequest.update(
+        blog?._id || "",
+        values
+      );
+      if (payload.status === 200) {
+        toast({
+          title: "Thành công",
+          description: payload.message || "Cập nhật bài viết thành công",
+        });
+        router.push("/admin/blog");
+      }
+    } catch (error) {
+      toast({
+        title: "Lỗi",
+        description: "Có lỗi xảy ra",
+      });
+    }
   };
   const onSubmit = async (values: CreateBlogBodyType) => {
     if (loading) return;
     if (!blog) {
       await fnCreateBlog(values);
+      return;
     }
+    await fnEditBlog(values);
   };
   return (
     <div className="">

@@ -37,7 +37,6 @@ export async function POST(request: Request) {
         }
         await database();
         const body = await request.json();
-
         body["authorId"] = 1;
         const result = await BlogModels.insertMany([body]);
         return ResponseSuccess({ data: result, message: "Tạo mới thành công", status: CREATED_SUCCESS });
@@ -45,27 +44,5 @@ export async function POST(request: Request) {
         console.error(error);
         return ResponseError({ message: (error as Error).message });
 
-    }
-}
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
-    try {
-        await database();
-        const body = await request.json();
-        const result = await BlogModels.updateOne({ _id: params.id }, { $set: body });
-        return ResponseSuccess({ data: result, message: "Cập nhật thành công" });
-    } catch (error) {
-        console.error(error);
-        return ResponseError({ message: (error as Error).message });
-
-    }
-}
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-    try {
-        await database();
-        const result = await BlogModels.deleteOne({ _id: params.id });
-        return ResponseSuccess({ data: result, message: "Xóa thành công" });
-    } catch (error) {
-        console.error(error);
-        return ResponseError({ message: (error as Error).message });
     }
 }
