@@ -13,7 +13,7 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default async function BlogPage() {
   try {
-    const { payload, status }: any = await blogApiRequest.getList({ limit: 5 });
+    const { payload, status }: any = await blogApiRequest.getList({ limit: 100 });
     if (status !== 200) {
       return <div>Failed to load posts</div>;
     }
