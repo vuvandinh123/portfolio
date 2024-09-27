@@ -28,7 +28,7 @@ export async function GET(request: Request) {
     }
 }
 
-const allowedOrigins = ['chrome-extension://acibknjhjbdcikjllgmconchgijmlpdh'];
+const allowedOrigins = ['*'];
 export async function POST(request: Request) {
     const origin = request.headers.get('origin') || '';
     try {
@@ -43,8 +43,7 @@ export async function POST(request: Request) {
         await database();
         const body = await request.json();
         const headers = {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': origin,
+            'Access-Control-Allow-Origin': '*', // Luôn cho phép mọi origin
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, Authorization',
             'Access-Control-Allow-Credentials': 'true',
