@@ -28,13 +28,9 @@ export async function GET(request: Request) {
     }
 }
 
-const allowedOrigins = ['*'];
 export async function POST(request: Request) {
-    const origin = request.headers.get('origin') || '';
     try {
-        if (!allowedOrigins.includes(origin)) {
-            return ResponseError({ message: "Không có quyền truy cập", status: 401 });
-        }
+       
         // Lấy token từ cookie
         const token = (request as any).cookies.get('token')?.value;
         if (!token) {
