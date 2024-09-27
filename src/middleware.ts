@@ -11,9 +11,6 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const token = request.cookies.get('token')?.value || '';
     const response = NextResponse.next() as NextResponse<unknown> & { user: JwtPayload };
-    // Thêm header CORS vào phản hồi
-    response.headers.set('Access-Control-Allow-Origin', 'chrome-extension://acibknjhjbdcikjllgmconchgijmlpdh');
-    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     // Thiết lập CORS headers
     if (privateApi.some(api => pathname.includes(api))) {
         if (!token) {

@@ -2,20 +2,31 @@ import { CREATED_SUCCESS } from "@/data/constants";
 import database from "@/lib/mongodb";
 import { ResponseSuccess, ResponseError } from "@/lib/responseHelper";
 import NoteModel from "@/models/notes";
+const allowedOrigins = ['chrome-extension://acibknjhjbdcikjllgmconchgijmlpdh'];
 export async function POST(request: Request) {
+    const origin = request.headers.get('origin') || '';
     try {
+        if (!allowedOrigins.includes(origin)) {
+            return ResponseError({ message: "Không có quyền truy cập", status: 401 });
+        }
         // Lấy token từ cookie
-        const token = (request as any).cookies.get('token')?.value; 
-        if(!token) {
+        const token = (request as any).cookies.get('token')?.value;
+        if (!token) {
             return ResponseError({ message: "Token không hợp lệ", status: 401 });
         }
         await database();
         const body = await request.json();
+        const headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': origin,
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials': 'true',
+        }
         const result = await NoteModel.insertMany([body]);
-        return ResponseSuccess({ data: result, message: "Tạo mới thành công", status: CREATED_SUCCESS });
+        return ResponseSuccess({ data: result, message: "Tạo mới thành công", status: CREATED_SUCCESS, headers: { ...headers } });
     } catch (error) {
         console.error(error);
         return ResponseError({ message: (error as Error).message });
-
     }
 }
