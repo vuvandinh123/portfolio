@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon } from "lucide-react";
+import { HomeIcon, NotebookIcon, Earth } from "lucide-react";
 
 export const DATA = {
   name: "Vũ Văn Định",
@@ -33,6 +33,7 @@ Với mục tiêu liên tục phát triển và đạt được những thành t
   navbar: [
     { href: "/", icon: HomeIcon, label: "Trang chủ" },
     { href: "/blog", icon: NotebookIcon, label: "Bài viết" },
+    { href: "/note", icon: Earth, label: "Ghi chú" },
   ],
   contact: {
     email: "vuvandinh203@gmail.com",

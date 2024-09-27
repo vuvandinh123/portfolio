@@ -1,3 +1,4 @@
+import NavLink from "@/components/NavLink";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -28,28 +29,34 @@ export default function Sidebar() {
       <nav className="grid gap-1 p-2">
         <Tooltip>
           <TooltipTrigger asChild>
-            <Link href="/admin/blog" className="rounded-lg p-2 bg-muted block">
-              <SquareTerminal className="size-5" />
-            </Link>
+            <NavLink
+              href="/admin/blog"
+              classActive="bg-muted"
+              className="rounded-lg p-2  block"
+            >
+              <span>
+                <SquareTerminal className="size-5" />
+              </span>
+            </NavLink>
           </TooltipTrigger>
           <TooltipContent side="right" sideOffset={5}>
             Bài viết
           </TooltipContent>
         </Tooltip>
-     
+
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-lg"
+            <NavLink
               aria-label="Documentation"
+              href="/admin/note"
+              classActive="bg-muted"
+              className="rounded-lg p-2"
             >
               <Book className="size-5" />
-            </Button>
+            </NavLink>
           </TooltipTrigger>
           <TooltipContent side="right" sideOffset={5}>
-            Documentation
+            Note
           </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -68,38 +75,6 @@ export default function Sidebar() {
           </TooltipContent>
         </Tooltip>
       </nav>
-      {/* <nav className="mt-auto grid gap-1 p-2">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="mt-auto rounded-lg"
-              aria-label="Help"
-            >
-              <LifeBuoy className="size-5" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right" sideOffset={5}>
-            Help
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="mt-auto rounded-lg"
-              aria-label="Account"
-            >
-              <SquareUser className="size-5" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right" sideOffset={5}>
-            Account
-          </TooltipContent>
-        </Tooltip>
-      </nav> */}
     </aside>
   );
 }

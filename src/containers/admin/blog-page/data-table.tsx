@@ -31,7 +31,7 @@ export function DataTable({
   data,
   columns,
 }: {
-  data: ListBlogType[];
+  data: any[];
   columns: any;
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);

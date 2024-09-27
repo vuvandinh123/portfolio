@@ -184,3 +184,6 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+._popupContainer_uazmk_1220{
+  display: none;
+}

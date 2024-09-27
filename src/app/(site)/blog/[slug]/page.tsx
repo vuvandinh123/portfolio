@@ -1,6 +1,6 @@
 import blogApiRequest from "@/apiRequest/blog";
 import NotFound from "@/components/NotFound";
-import { convertMdxToHtml, getPost } from "@/data/blog";
+import { convertMdxToHtml } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
 import { BlogType } from "@/types/blog";
@@ -28,10 +28,12 @@ export async function generateMetadata({
       type: "article",
       publishedTime,
       url: `${DATA.url}/blog/${post._id}`,
-
       images: [
         {
-          url: `${DATA.url}/og?title=${post.title}`,
+          url: "https://codecungtui.github.io/images/tao-blog-don-gian-voi-hugo-va-github/cover.jpg",
+          width: 800,
+          height: 600,
+          alt: "Preview Blog Image",
         },
       ],
     },
@@ -39,7 +41,14 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      // images: [ogImage],
+      images: [
+        {
+          url: "https://codecungtui.github.io/images/tao-blog-don-gian-voi-hugo-va-github/cover.jpg",
+          width: 800,
+          height: 600,
+          alt: "Preview Blog Image",
+        },
+      ],
     },
   };
 }

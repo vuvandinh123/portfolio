@@ -1,16 +1,17 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import ListBlog from "@/containers/site/blogs/ListBlog";
+import ListNote from "@/containers/site/note/ListNote";
 
 export const metadata = {
-  title: "Bài viết - Vũ Văn Định",
+  title: "Ghi chú - Vũ Văn Định",
   description:
     "Những suy nghĩ của tôi về phát triển phần mềm, cuộc sống, và nhiều hơn thế nữa.",
   keywords: "phát triển phần mềm, lập trình, cuộc sống, blog, Vũ Văn Định",
   openGraph: {
-    title: "Bài viết - Vũ Văn Định",
+    title: "Ghi chú - Vũ Văn Định",
     description:
       "Khám phá những bài viết về phát triển phần mềm và cuộc sống từ Vũ Văn Định.",
-    url: "https://vuvandinh.id.vn/blog",
+    url: "https://vuvandinh.id.vn/note",
     siteName: "Vũ Văn Định Blog",
     images: [
       {
@@ -26,9 +27,10 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@yourtwitterhandle",
-    title: "Bài viết - Vũ Văn Định",
+    title: "Ghi chú - Vũ Văn Định",
     description: "Những suy nghĩ của tôi về phát triển phần mềm và cuộc sống.",
-    image: "https://codecungtui.github.io/images/tao-blog-don-gian-voi-hugo-va-github/cover.jpg",
+    image:
+      "https://codecungtui.github.io/images/tao-blog-don-gian-voi-hugo-va-github/cover.jpg",
   },
 };
 
@@ -38,9 +40,9 @@ export default function BlogPage() {
   return (
     <section>
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <h1 className="font-medium text-2xl mb-8 tracking-tighter">Bài viết</h1>
+        <h1 className="font-medium text-2xl mb-8 tracking-tighter">Ghi chú</h1>
       </BlurFade>
-      <ListBlog />
+      <ListNote />
     </section>
   );
 }
