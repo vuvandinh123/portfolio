@@ -4,7 +4,6 @@ import { CREATED_SUCCESS } from '@/data/constants';
 import UserModel from '@/models/users';
 import bcrypt from 'bcrypt'
 import { createPrivateKeyAndPublicKey, createTokenPeir, getInfoData } from "@/lib/utils";
-import KeyTokenModel from "@/models/KeyToken";
 import { headers } from "next/headers";
 // đăng nhập
 export async function POST(request: Request) {
