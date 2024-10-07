@@ -1,0 +1,70 @@
+---
+title: "Sử dụng Docker trong PHP"
+publishedAt: "2024-10-06"
+summary: "Hướng dẫn sử dụng Docker trong PHP"
+image: "https://techvccloud.mediacdn.vn/2018/7/13/docker-1531468887078532266614-0-14-400-726-crop-15314688919081778546108.png"
+---
+
+![docker](https://techvccloud.mediacdn.vn/2018/7/13/docker-1531468887078532266614-0-14-400-726-crop-15314688919081778546108.png 'docker')
+
+### tạo file docker-compose.yml
+```bash
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html
+    expose:
+      - 9000
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - .:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+```
+### Tạo file Dockerfile
+
+```bash
+FROM php:8.3-fpm
+
+# Cài đặt Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Cấu hình Xdebug
+COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+# Copy mã nguồn PHP vào container
+COPY . /var/www/html
+
+EXPOSE 9000
+```
+### Các lệnh cơ bản
+
+### để chạy ứng dụng
+```bash
+sudo docker compose up --build -d
+```
+### Để xem các container đang chạy
+```bash
+ sudo docker ps
+```
+### Dừng các container đang chạy 
+```bash
+docker stop <container_id>
+```
+### DỪng tất cả
+```bash
+docker stop $(docker ps -aq)
+```
+### Xóa các container đã dừng
+```bash
+docker rm $(docker ps -aq)
+```

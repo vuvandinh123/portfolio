@@ -1,0 +1,69 @@
+---
+title: "Prototype chain trong javascript là gì ?"
+publishedAt: "2024-10-05"
+summary: "Mỗi đối tượng trong javascript có một thuộc tính gọi là **prototype** cho phép nó kế thừa từ một đối tượng khác. Khi truy cập một thuộc tính hay 1 phương thức trên một đối tượng javascript sẽ kiểm tra đối tượng đó trước."
+---
+
+### 1. Khái niệm
+
+Mỗi đối tượng trong javascript có một thuộc tính gọi là **prototype** cho phép nó kế thừa từ một đối tượng khác. Khi truy cập một thuộc tính hay 1 phương thức trên một đối tượng javascript sẽ kiểm tra đối tượng đó trước. Nếu không tìm thấy thuộc tính hay phương thức đó javascript sẽ tìm kiếm trong đối tượng mà nó kês thừa và tiếp tục tìm kiếm cho đến khi nó tìm thấy thuộc tính hoặc method đó nếu ko tìm đươc sẽ trả về undefile.
+
+### 2. Ví dụ về prototype chain
+
+```js
+// Đối tượng prototype
+const animal = {
+  eat() {
+    console.log("Eating...");
+  }
+};
+
+// Đối tượng kế thừa từ prototype
+const dog = Object.create(animal); // dog kế thừa từ animal
+
+dog.bark = function() {
+  console.log("Barking...");
+};
+// Gọi phương thức từ prototype
+dog.eat(); // Kết quả: "Eating..."
+dog.bark(); // Kết quả: "Barking..."
+```
+
+Trong ví dụ trên:
+`dog` là đối tượng con, và animal là đối tượng cha.
+khi mình gọi `dog.eat()` javascript sẽ tìm phương thức `eat` trong dog nếu không có nó sẽ kiểm tra lớp cha mà nó kế thừa là `animal` và tìm thấy phương thức ở `animal`
+
+### 3.Cách kiểm tra prototype
+
+```js
+console.log(animal.isPrototypeOf(dog)); // Kết quả: true
+console.log(dog instanceof Object); // Kết quả: true
+```
+
+### 4. SỬ dụng contructor Function
+
+```js
+function Animal() {}
+
+Animal.prototype.eat = function() {
+  console.log("Eating...");
+};
+
+function Dog() {}
+
+// Kế thừa từ Animal
+Dog.prototype = Object.create(Animal.prototype);
+
+Dog.prototype.bark = function() {
+  console.log("Barking...");
+};
+
+const myDog = new Dog();
+myDog.eat(); // Kết quả: "Eating..."
+myDog.bark(); // Kết quả: "Barking..."
+```
+
+### 5.Tóm Tắt
+
+* Prototype chain cho phép đối tượng trong JavaScript kế thừa thuộc tính và phương thức từ các đối tượng khác.
+* Đây là một phần quan trọng của mô hình lập trình đối tượng trong JavaScript, giúp tối ưu hóa việc chia sẻ mã và giảm lặp lại mã nguồn.

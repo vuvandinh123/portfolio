@@ -1,7 +1,9 @@
 import BlurFade from "@/components/magicui/blur-fade";
-import ListBlog from "@/containers/site/blogs/ListBlog";
+import TitleSection from "@/components/TitleSection";
 import ListNote from "@/containers/site/note/ListNote";
+import { getOnePost } from "@/data/blog";
 
+const BLUR_FADE_DELAY = 0.04;
 export const metadata = {
   title: "Ghi chú - Vũ Văn Định",
   description:
@@ -33,16 +35,21 @@ export const metadata = {
       "https://codecungtui.github.io/images/tao-blog-don-gian-voi-hugo-va-github/cover.jpg",
   },
 };
-
-const BLUR_FADE_DELAY = 0.04;
-
-export default function BlogPage() {
+export default async function BlogPage() {
+  const data = await getOnePost("notes", "", "notes");
   return (
     <section>
-      <BlurFade delay={BLUR_FADE_DELAY}>
-        <h1 className="font-medium text-2xl mb-8 tracking-tighter">Ghi chú</h1>
+      <TitleSection
+        label="Ghi chú"
+        title="Tôi thích học"
+        description="Tôi thích học những thứ mới và ghi chú lại những thứ mình đã học và đang học để phát triển bản thân."
+      ></TitleSection>
+      <BlurFade
+        delay={BLUR_FADE_DELAY * 20}
+        className="prose dark:prose-invert pb-10"
+      >
+        <ListNote source={data?.source} />
       </BlurFade>
-      <ListNote />
     </section>
   );
 }

@@ -1,75 +1,94 @@
-import blogApiRequest from "@/apiRequest/blog";
 import NotFound from "@/components/NotFound";
-import { convertMdxToHtml } from "@/data/blog";
+import { getOnePost } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
-import { BlogType } from "@/types/blog";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-
-export async function generateMetadata({
-  params,
-}: {
+import ContentPost from "@/containers/posts/ContentPost";
+type Props = {
   params: {
     slug: string;
   };
-}): Promise<Metadata | undefined> {
-  let { payload }: { payload: any } = await blogApiRequest.getOne(params.slug);
-  const post = payload?.data as BlogType;
-  if (!post) return;
-  let { title, description, date: publishedTime } = post;
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-      publishedTime,
-      url: `${DATA.url}/blog/${post._id}`,
-      images: [
-        {
-          url: "https://codecungtui.github.io/images/tao-blog-don-gian-voi-hugo-va-github/cover.jpg",
-          width: 800,
-          height: 600,
-          alt: "Preview Blog Image",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [
-        {
-          url: "https://codecungtui.github.io/images/tao-blog-don-gian-voi-hugo-va-github/cover.jpg",
-          width: 800,
-          height: 600,
-          alt: "Preview Blog Image",
-        },
-      ],
-    },
+  searchParams: {
+    cat?: string;
   };
-}
-async function getData({ id }: { id: string }) {
-  let { payload }: { payload: any } = await blogApiRequest.getOne(id);
-  const post = payload?.data as BlogType;
-  console.log(post);
+};
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata | undefined> {
+  if (!params || !searchParams) {
+    return undefined;
+  }
 
+  const cat = (searchParams?.cat as string) || "";
+
+  try {
+    const post = await getData({ slug: params.slug, cat });
+
+    if (!post || !post.metadata) {
+      return undefined;
+    }
+
+    let {
+      title,
+      publishedAt: publishedTime,
+      summary: description,
+      image,
+      keywords,
+    } = post.metadata;
+
+    let ogImage = image
+      ? `${image}`
+      : `${DATA.url}/og?title=${title}`;
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        type: "article",
+        publishedTime,
+        url: `${DATA.url}/blog/${post.slug}`,
+        images: [
+          {
+            url: ogImage,
+            alt: title,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [ogImage],
+      },
+      robots: {
+        index: true,
+        follow: true,
+      },
+      keywords: keywords ? keywords.join(", ") : "blog, programming, tech", // Thêm keywords
+    };
+  } catch (error) {
+    console.error("Error generating metadata:", error);
+    return undefined;
+  }
+}
+
+async function getData({ slug, cat }: { slug: string; cat: string }) {
+  let post = await getOnePost(slug, cat);
   if (!post) return notFound();
   return post;
 }
-export default async function Blog({
-  params,
-}: {
-  params: {
-    slug: string;
-  };
-}) {
+export default async function Blog({ params, searchParams }: Props) {
   try {
-    const post = await getData({ id: params.slug });
-    const content = await convertMdxToHtml(post.content);
+    const cat = (searchParams?.cat as string) || "";
+    if (!cat) {
+      return notFound();
+    }
+    const post = await getData({ slug: params.slug, cat });
     return (
       <section id="blog">
         <script
@@ -79,12 +98,14 @@ export default async function Blog({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "BlogPosting",
-              headline: post.title,
-              datePublished: post.date,
-              dateModified: post.date,
-              description: post.description,
-              image: `${DATA.url}/og?title=${post.title}`,
-              url: `${DATA.url}/blog/${post._id}`,
+              headline: post.metadata.title,
+              datePublished: post.metadata.publishedAt,
+              dateModified: post.metadata.publishedAt,
+              description: post.metadata.summary,
+              image: post.metadata.image
+                ? `${DATA.url}${post.metadata.image}`
+                : `${DATA.url}/og?title=${post.metadata.title}`,
+              url: `${DATA.url}/blog/${post.slug}`,
               author: {
                 "@type": "Person",
                 name: DATA.name,
@@ -92,20 +113,19 @@ export default async function Blog({
             }),
           }}
         />
-        <h1 className=" font-bold text-4xl  tracking-tighter max-w-[650px]">
-          {post.title}
+        <h1 className="title  text-3xl font-bold tracking-tighter max-w-[650px]">
+          {post.metadata.title}
         </h1>
         <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
           <Suspense fallback={<p className="h-5" />}>
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {formatDate(post.date)}
+              {formatDate(post.metadata.publishedAt)}
             </p>
           </Suspense>
         </div>
-        <article
-          className="prose dark:prose-invert"
-          dangerouslySetInnerHTML={{ __html: content }}
-        ></article>
+        <article className="prose dark:prose-invert pb-10">
+          <ContentPost source={post.source}></ContentPost>
+        </article>
       </section>
     );
   } catch (error) {

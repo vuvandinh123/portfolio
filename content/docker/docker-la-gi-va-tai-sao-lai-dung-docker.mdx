@@ -1,0 +1,85 @@
+---
+title: "Docker là gì và tại sao lại dùng Docker"
+publishedAt: "2024-10-07"
+summary: "Hưng dẫn Docker là gì và tại sao lại dùng Docker"
+---
+
+
+{/* ![docker](https://techvccloud.mediacdn.vn/2018/7/13/docker-1531468887078532266614-0-14-400-726-crop-15314688919081778546108.png 'docker') */}
+### 1. **Docker Images (Hình ảnh Docker)**
+
+Docker image là bản sao của một môi trường có chứa hệ điều hành, ứng dụng, và các thư viện cần thiết để ứng dụng chạy. Image là trạng thái không thay đổi, được sử dụng để tạo ra container. Image có thể được tải từ **Docker Hub** (kho chứa image trực tuyến) hoặc tự tạo từ file cấu hình gọi là **Dockerfile**.
+
+* Mỗi image có nhiều lớp (layers), mỗi lớp chứa các thay đổi được thực hiện trong quá trình xây dựng image. Docker lưu trữ các lớp này để tránh lặp lại công việc.
+
+### 2. **Docker Containers (Container Docker)**
+
+Container là một phiên bản đang chạy của một image. Khi bạn khởi động một container, Docker sẽ sử dụng image để tạo ra một phiên bản mới, cung cấp một môi trường cô lập với phần còn lại của hệ thống. Container này sẽ chứa toàn bộ ứng dụng, cùng các phụ thuộc như hệ điều hành, thư viện, và tệp tin cần thiết.
+
+* Container có thể giao tiếp với thế giới bên ngoài thông qua các cổng được mở ra từ container tới máy chủ vật lý.
+* Container hoạt động độc lập và có thể dễ dàng di chuyển từ môi trường này sang môi trường khác mà không gặp vấn đề về phụ thuộc.
+
+### 3. **Docker Engine (Công cụ Docker)**
+
+Docker Engine là thành phần cốt lõi giúp quản lý việc tạo, chạy và dừng các container. Nó bao gồm ba phần chính:
+
+* **Docker Daemon**: Là tiến trình chạy trên máy chủ, chịu trách nhiệm quản lý các image, container, network, và storage.
+* **Docker Client**: Giao diện dòng lệnh (CLI) mà người dùng sử dụng để tương tác với Docker Daemon.
+* **REST API**: Cung cấp khả năng điều khiển Docker thông qua các yêu cầu HTTP.
+
+### 4. **Dockerfile**
+
+Dockerfile là một file văn bản chứa các lệnh mà Docker sử dụng để xây dựng image. Các lệnh này xác định môi trường của ứng dụng (như hệ điều hành, các gói phần mềm cần thiết), và cách thức chạy ứng dụng bên trong container.
+
+Ví dụ một Dockerfile đơn giản:
+
+```sh
+# Chọn một image từ Docker Hub
+FROM node:14
+
+# Thiết lập thư mục làm việc
+WORKDIR /app
+
+# Sao chép package.json và cài đặt phụ thuộc
+COPY package.json /app
+RUN npm install
+
+# Sao chép toàn bộ mã nguồn vào container
+COPY . /app
+
+# Mở cổng 3000
+EXPOSE 3000
+
+# Khởi chạy ứng dụng
+CMD ["npm", "start"]
+
+```
+
+### 5. **Docker Compose**
+
+Docker Compose là một công cụ giúp bạn định nghĩa và quản lý nhiều container cùng lúc. Bạn có thể sử dụng file `docker-compose.yml` để định nghĩa các dịch vụ (services), mạng (network), và volume cho các container của mình. Nó hữu ích khi bạn cần triển khai các ứng dụng phức tạp có nhiều thành phần (ví dụ như một ứng dụng web có front-end, back-end, và cơ sở dữ liệu).
+
+Ví dụ file `docker-compose.yml`:
+
+```sh
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+  database:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+```
+
+### 6. **Volumes (Ổ đĩa chia sẻ)**
+
+Volumes trong Docker cho phép bạn lưu trữ dữ liệu của container ở ngoài container. Điều này rất hữu ích vì khi container bị xóa, dữ liệu trong container sẽ mất nếu không sử dụng volume. Bằng cách gắn volume vào container, bạn có thể giữ lại dữ liệu bất kể container có tồn tại hay không.
+
+ref Docker
+
+* [ref docker](https://github.com/Hjn4Pwn/docker-docs "Docker xem thêm")

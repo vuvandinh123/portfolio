@@ -1,0 +1,95 @@
+---
+title: "Các lệnh git cơ bản và cách chiến khải ứng dụng git"
+publishedAt: "2024-06-18"
+summary: "Hướng dẫn các lệnh git cơ bản và cách chiến khải ứng dụng git"
+---
+
+* 1 Tạo repo với nhánh mặc định là main
+* 2 Tạo nhánh develop để quản lý và phát triển ứng dụng trên nhánh này
+* 3 Tạo các nhánh feature vd đătj tên feature/1-add-product-model trong đó 1 là id của issues cho từng chức năng phải tạo issues để tạo và quản lý các công việc cần làm
+* 4 khi hoàn thành một chức năng commit với id của issues vd: #1 -`<nội dung>`  lên nhánh develop
+* 5 Vô nhánh develop tạo nhánh release-1.0.0 `git checkout -b release-1.0.0 develop`
+* 6 Tạo tag `git tag v1.0.0` và `git push --tags`
+* 7 Từ release đẩy lên production tức nhánh main
+* 8 Xóa các nhánh đã xong như featuer và release
+
+***
+
+
+### 1 Khởi tạo một dự án
+```bash
+git init
+```
+chức năng tạo một thư mục .git để lưu trữ và quản lý các dữ liệu đến repo
+
+### 2 Sao chép một repo từ xa
+```bash
+git clone <link-ssh> hoặc https
+```
+chức năng sẽ sao chép một repo từ xa và được tải lưu về máy cục bộ và tạo một tên thư mục cùng với tên repo nếu không đổi tên
+### 3 Thêm các file cần đổi lên repo cục bôj để chuẩn bị
+```bash
+git add <file>
+```
+hoặc `git add .` nêú đẩy tất cả file đã thay đổi hoặc mới tạo
+### 4 Tạo log ghi chú
+```bash
+git commit -m"add feauter ..."
+```
+giúp gửi các tập tin lên kho repo với ghi chú là add feauter để biết file thay đổi gì và chức năng gì
+
+### 5 đẩy các file chỉ định hay các tệp thay đổi lên nhánh chỉ định
+
+```bash
+git push <remote_repo> <branch>
+```
+
+### 6 Cập nhật code mới nhất từ repo về nếu có nhiều người làm
+
+```bash 
+git pull <remote_repo> <branch>
+```
+
+### 7 xem các file đã sửa đổi
+```bash
+git status
+```
+
+### 8 Xem lịch sử các lệnh git
+```bash 
+git log
+```
+sẽ hiển thị toàn bộ các lịch sử commit và thời gian
+
+### 9 Tạo nhánh xóa nhánh và xem nhánh
+```bash 
+git branch <ten nhanh muon tạo>
+```
+Các kí tự đi kèm `-b` để tạo và truy cập `-d` để xóa nhánh
+### 10 Chuyển nhánh
+```bash 
+git checkout <branch_name>
+```
+### 11 Tải về các thay đổi từ remote mà không merge
+```bash 
+git fetch
+```
+### 12 Cập nhật code từ nhánh khác đến nhánh hiện tại
+```bash 
+git merge <ten_nhanh>
+```
+### 13 Push nhánh mới lên github
+```bash 
+git push -u origin ten-nhanh-moi
+```
+### 14 Xóa nhánh ở local
+
+```bash 
+git branch -d <ten-nhanh>
+```
+
+### 15 Xóa nhánh ở github
+
+```bash
+git push origin --delete ten-nhanh
+```

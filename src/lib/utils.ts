@@ -10,6 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(date: string) {
   let currentDate = new Date().getTime();
+
   if (!date.includes("T")) {
     date = `${date}T00:00:00`;
   }
@@ -17,13 +18,11 @@ export function formatDate(date: string) {
   let timeDifference = Math.abs(currentDate - targetDate);
   let daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
-  let fullDate = new Date(date).toLocaleString("vi-VN", {
-    timeZone: 'Asia/Ho_Chi_Minh',
-    day: "numeric",
+  let fullDate = new Date(date).toLocaleString("en-us", {
     month: "long",
+    day: "numeric",
     year: "numeric",
   });
-
   if (daysAgo < 1) {
     return "Hôm nay";
   } else if (daysAgo < 7) {
@@ -38,37 +37,4 @@ export function formatDate(date: string) {
     const yearsAgo = Math.floor(daysAgo / 365);
     return `${fullDate} (${yearsAgo} Năm trước)`;
   }
-}
-export const createTokenPeir = async (payload: UserType) => {
-  const expiresInAccessToken = 1800 * 2;
-  // Create access and refresh tokens
-  try {
-    const token = JWT.sign(payload, process.env.JWT_SECRET || '', {
-      expiresIn: expiresInAccessToken,
-    });
-    return token
-  } catch (error) {
-    // If there is an error, rethrow it
-    throw error;
-  }
-}
-// const verifyJWT = async (token, keySecret) => {
-//   return await JWT.verify(token, keySecret)
-// }
-
-export const getInfoData = ({ fileds = [], object = {} }: {
-  fileds: Array<string>,
-  object: Object
-}) => {
-  return _.pick(object, fileds)
-}
-export const createPrivateKeyAndPublicKey = (size = 64 as number) => {
-  // Generate a random private key
-  const privateKey = crypto.randomBytes(size).toString('hex');
-  // Generate a random public key
-  const publicKey = crypto.randomBytes(size).toString('hex');
-  return {
-    privateKey,
-    publicKey
-  };
 }
