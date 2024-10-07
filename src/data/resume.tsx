@@ -2,10 +2,8 @@ import { Icons } from "@/components/icons";
 import {
   HomeIcon,
   NotebookIcon,
-  Earth,
   Code,
   PencilLine,
-  BriefcaseBusiness,
 } from "lucide-react";
 
 export const DATA = {
@@ -40,8 +38,8 @@ Với mục tiêu liên tục phát triển và đạt được những thành t
   navbar: [
     { href: "/", icon: HomeIcon, label: "Trang chủ" },
     { href: "/projects", icon: Code, label: "Dự án cá nhân" },
-    { href: "/blog", icon: NotebookIcon, label: "Bài viết" },
-    { href: "/note", icon: PencilLine, label: "Ghi chú" },
+    { href: "/blogs", icon: NotebookIcon, label: "Bài viết" },
+    { href: "/notes", icon: PencilLine, label: "Ghi chú" },
   ],
   contact: {
     email: "vuvandinh203@gmail.com",

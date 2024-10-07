@@ -118,7 +118,7 @@ code[data-line-numbers] > [data-line]::before {
   @apply inline-block w-4 mr-4 text-right text-gray-500;
 }
 pre {
-  @apply !leading-loose;
+  /* @apply !leading-loose; */
   @apply !bg-[#1f2937]
 }
 code {

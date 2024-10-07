@@ -1,8 +1,11 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import TitleSection from "@/components/TitleSection";
-import ListNote from "@/containers/site/note/ListNote";
 import { getOnePost } from "@/data/blog";
+import dynamic from "next/dynamic";
 
+const ContentPost = dynamic(() => import("@/containers/posts/ContentPost"), {
+  ssr: false, // Disable SSR for this component
+});
 const BLUR_FADE_DELAY = 0.04;
 export const metadata = {
   title: "Ghi chú - Vũ Văn Định",
@@ -35,7 +38,7 @@ export const metadata = {
       "https://codecungtui.github.io/images/tao-blog-don-gian-voi-hugo-va-github/cover.jpg",
   },
 };
-export default async function BlogPage() {
+export default async function page() {
   const data = await getOnePost("notes", "", "notes");
   return (
     <section>
@@ -48,7 +51,9 @@ export default async function BlogPage() {
         delay={BLUR_FADE_DELAY * 20}
         className="prose dark:prose-invert pb-10"
       >
-        <ListNote source={data?.source} />
+        <article className="prose dark:prose-invert pb-10">
+          {data?.source && <ContentPost source={data?.source}></ContentPost>}
+        </article>
       </BlurFade>
     </section>
   );
