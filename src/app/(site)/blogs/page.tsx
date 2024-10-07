@@ -71,7 +71,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       params.delete("page");
     }
     // Trả về URL mới
-    return `/blog?${params.toString()}`;
+    return `/blogs?${params.toString()}`;
   };
 
   const posts = await getBlogPosts({
