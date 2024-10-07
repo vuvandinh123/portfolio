@@ -58,7 +58,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   ) => {
     const params = new URLSearchParams(searchParams as Record<string, string>);
     if (Number(newParams?.page) > Number(totalPage) || page == "0") {
-      return `/blog?${params.toString()}`;
+      return `/blogs?${params.toString()}`;
     }
     // Cập nhật các tham số query
     Object.entries(newParams).forEach(([key, value]) => {
