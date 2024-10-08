@@ -148,7 +148,7 @@ Tôi rất mong được nghe phản hồi từ bạn và sẵn sàng trao đổ
     },
     {
       title: "Website thương mại điện tử B2C",
-      href: "https://github.com/vuvandinh123",
+      href: "https://github.com/vuvandinh123/CLIENT_REACTJS_VVD_SHOP_V1",
       dates: "Tháng 12 2023 - Tháng 7 2024",
       active: true,
       description: `Dự Án Thương Mại Điện Tử BTC là một nền tảng bán hàng trực tuyến toàn diện, cho phép chủ cửa hàng quản lý sản phẩm và đơn hàng, người mua hàng thực hiện giao dịch, và quản trị viên điều hành hệ thống. Được phát triển bằng Node.js, React.js, và MySQL, dự án nhằm tối ưu hóa quy trình kinh doanh và nâng cao trải nghiệm người dùng.`,
@@ -165,7 +165,7 @@ Tôi rất mong được nghe phản hồi từ bạn và sẵn sàng trao đổ
       links: [
         {
           type: "Website",
-          href: "https://github.com/vuvandinh123",
+          href: "https://github.com/vuvandinh123/CLIENT_REACTJS_VVD_SHOP_V1",
           icon: <Icons.globe className="size-3" />,
         },
       ],
@@ -175,7 +175,7 @@ Tôi rất mong được nghe phản hồi từ bạn và sẵn sàng trao đổ
     },
     {
       title: "Website kiểm tra trắc nghiệm",
-      href: "https://github.com/vuvandinh123",
+      href: "https://vuvandinh.com",
       dates: "Tháng 1 2024 - Tháng 5 2024",
       active: true,
       description: `Xây dựng một hệ thống website toàn diện để quản lý và tổ chức các kỳ thi trắc nghiệm cho công đoàn trường học. Hệ thống cho phép quản trị viên tạo và quản lý các bài thi trắc nghiệm, theo dõi kết quả và thống kê điểm số. Người dùng có thể đăng nhập, làm bài thi trực tuyến, và xem kết quả thi của mình.`,

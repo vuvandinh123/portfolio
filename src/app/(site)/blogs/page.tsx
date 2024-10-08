@@ -93,11 +93,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         <div className="flex min-h-0 flex-col gap-y-3">
           <div className="flex flex-wrap gap-1">
             <BlurFade delay={BLUR_FADE_DELAY * 10}>
-              <Link href={"/blog"} passHref>
+              <Link href={"/blogs"} passHref>
                 <Badge
                   className={`${
                     "" === cate
-                      ? "bg-white"
+                      ? "bg-white text-black"
                       : "bg-gray-800 bg-opacity-80 hover:text-black hover:bg-white text-gray-50 border-2"
                   }`}
                 >
@@ -118,7 +118,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   <Badge
                     className={`${
                       skill === cate
-                        ? "bg-white"
+                        ? "bg-white text-black border-2 hover:bg-white"
                         : "bg-gray-800 bg-opacity-80 hover:text-black hover:bg-white text-gray-50 border-2"
                     }`}
                     key={skill}
