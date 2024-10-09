@@ -5,7 +5,139 @@ summary: "My first post on my new blog."
 ---
 
 ### Ghi chú
+<details style={{cursor:"pointer"}}>
+<summary >(NOTE 03 09-10-2022) - Tạo Database trên VPS và cấp quyền truy cập cho máy tính từ xa</summary>
+<div class="description">
+#### 1. Cài đặt MySQL trên VPS
+    1. Cập nhật hệ thống
+    ```bash
+    sudo apt update
+    sudo apt upgrade
+    ```
+    2. Cài đặt MySQL nếu chưa có
+    ```bash
+    sudo apt install mysql-server
+    ```
+    3. Bảo mật MySQL
+    ```bash
+    sudo mysql_secure_installation
+    ```
+#### 2. Tạo database và cấp quyền truy cập cho máy tính từ xa
+    1. Đăng nhập vào MySQL
+    ```bash
+    sudo mysql -u root -p
+    ```
+    2. Tạo database mới
+    ```bash
+    CREATE DATABASE ten_csd;
+    ```
+    3. Tạo user mới
+    ```bash
+    CREATE USER 'username'@'%' IDENTIFIED BY 'password';
+    ```
+    4. Cấp quyền cho user mới
+    ```bash
+    GRANT ALL PRIVILEGES ON ten_csd.* TO 'username'@'%';
+    ```
+    5. Lưu lại các thay đổi
+    ```bash
+    FLUSH PRIVILEGES;
+    ```
+    6. Thoát MySQL
+    ```bash
+    exit
+    ```
+#### 3. Cấu hình MySQL cho phép truy cập từ xa`
+    1. Mở file cấu hình MySQL
+    ```bash
+    sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+    ```
+    2. Tìm đến dòng bind-address và sửa thành
+    ```bash 
+    bind-address = 0.0.0.0
+    ```
+    3. Lưu lại file và khởi động lại MySQL
+    ```bash
+    sudo systemctl restart mysql
+    ```
+#### 4. Mở cổng Mysql trên tường nửa VPS
+    1. Mở cổng 3306
+    ```bash
+    sudo ufw allow 3306
+    ```
+    2. Kiểm tra lại các cổng đã mở
+    ```bash
+    sudo ufw status
+    ```
+#### 5. Kiểm tra kết nối từ xa
+    1. Dùng lệnh
+    ```bash
+    mysql -u username -h ip_address -p
+    ```
+    - username: là tên user vừa tạo
+    - ip_address: là địa chỉ IP của VPS
+    2. Dùng ứng dụng hỗ trợ kết nối MySQL như
+    - MySQL Workbench
+    - DBeaver
+    - HeidiSQL
+    - Antares SQL
+    - Navicat
 
+</div>
+</details>
+
+<details style={{cursor:"pointer"}}>
+<summary >(NOTE 03 08-10-2022) - Ghi chú công việc ngày 8-10</summary>
+<div class="description">
+    1. Tạo một project mới với Laravel
+    ```bash
+    composer create-project --prefer-dist laravel/laravel blog
+    ```
+    2. Tạo một model mới
+    ```bash
+    php artisan make:model Post -m
+    ```
+    3. Tạo một controller mới
+    ```bash
+    php artisan make:controller PostController
+    ```
+    4. Tạo một request mới
+    ```bash
+    php artisan make:request PostRequest
+    ```
+    5. Tạo một middleware mới
+    ```bash
+    php artisan make:middleware CheckAge
+    ```
+### Làm việc với database
+    6. Tạo một migration mới
+    ```bash
+    php artisan make:migration create_posts_table
+    ```
+    7. Tạo một factory mới
+    ```bash
+    php artisan make:factory PostFactory
+    ```
+    8. Tạo một seeder mới
+    ```bash
+    php artisan make:seeder PostSeeder
+    ```
+    9. Tạo một resource mới
+    ```bash
+    php artisan make:resource PostResource
+    ```
+    
+
+</div>
+</details>
+
+<details style={{cursor:"pointer"}}>
+<summary >(NOTE 03 08-10-2022) - Các trang website hay cho lập trình viên  08-10</summary>
+<div class="description">
+    1. [Tổng hợp các tools trong lập trình ](https://it-tools.tech/)
+    2. [Tổng hợp các icon svg free ](https://svgmix.com/)
+</div>
+</details>
 
 <details style={{cursor:"pointer"}}>
 <summary >(NOTE 02 07-10-2022) - Xem mật khẩu wifi đã kết nối với Linux 07-10</summary>
