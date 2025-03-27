@@ -5,9 +5,14 @@ import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import ContentPost from "@/containers/posts/ContentPost";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowRight, Undo2 } from "lucide-react";
+
+const ContentPost = dynamic(() => import("@/containers/posts/ContentPost"), {
+  ssr: false,
+});
+
 type Props = {
   params: {
     slug: string;
@@ -146,13 +151,14 @@ export default async function Blog({ params, searchParams }: Props) {
           </Suspense>
         </div>
         <article className="prose dark:prose-invert pb-10">
-          <ContentPost source={post.source}></ContentPost>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ContentPost source={post.source} />
+          </Suspense>
         </article>
       </section>
     );
   } catch (error) {
     console.log(error);
-
     return <NotFound />;
   }
 }
