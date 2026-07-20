@@ -1,0 +1,36 @@
+name: Deploy Next.js to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            set -e
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            cd /home/dinhvu/workspaces/portfolio
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            nvm use --lts
+            npm ci
+            npm run build
+
+            pm2 restart portfolio --update-env
+            pm2 save
